@@ -10,6 +10,6 @@ ENV HOME /data
 WORKDIR /data
 CMD ["/bin/camlistored", "-listen", ":80"]
 
-RUN curl -qLf https://github.com/bradfitz/camlistore/archive/${VERSION}.tar.gz | tar xzf - -C /usr/src && \
+RUN curl -qLf https://github.com/camlistore/camlistore/archive/${VERSION}.tar.gz | tar xzf - -C /usr/src && \
   cd /usr/src/camlistore-${VERSION} && make && \
   mv bin/* /bin && rm -rf /usr/src/camlistore-${VERSION}
