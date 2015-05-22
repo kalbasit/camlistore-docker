@@ -1,18 +1,15 @@
-FROM debian
-MAINTAINER zimbatm <zimbatm@zimbatm.com>
+FROM golang:1.4.2
+MAINTAINER larstobi
 
-# Storage
-VOLUME ["/data"]
+ENV VERSION 0.8
 
-# Make & install
-ADD build.sh /root/build.sh
-RUN sh /root/build.sh
-
-# Config
-EXPOSE 80
+VOLUME /data
+EXPOSE 80 443 3179 8080
 ENV USER root
 ENV HOME /data
-# TODO: other options ?
+WORKDIR /data
+CMD ["/bin/camlistored", "-listen", ":80"]
 
-# Run
-ENTRYPOINT ["/bin/camlistored", "-listen", ":80"]
+RUN curl -qLf https://github.com/bradfitz/camlistore/archive/${VERSION}.tar.gz | tar xzf - -C /usr/src && \
+  cd /usr/src/camlistore-${VERSION} && make && \
+  mv bin/* /bin && rm -rf /usr/src/camlistore-${VERSION}

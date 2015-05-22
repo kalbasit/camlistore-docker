@@ -11,7 +11,7 @@ Usage
 
 ```
 docker run -v /data --name camlistore-data busybox true || true
-docker run -tiP --rm --name camlistore --volumes-from camlistore-data zimbatm/camlistore
+docker run -tiP --rm --name camlistore --volumes-from camlistore-data larstobi/camlistore
 ```
 
 Right now the default config is generated automatically on first start which
